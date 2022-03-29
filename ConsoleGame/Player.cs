@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleGame
@@ -10,23 +11,24 @@ namespace ConsoleGame
     {
         public int X { get; set; }
         public int Y { get; set; }
-        private string PlayerMarker;
-        private ConsoleColor PlayerColor;
+        public ConsoleColor Color { get; set; }
+        private string Marker;
+
 
         public Player(int startingX, int startingY)
         {
             X = startingX;
             Y = startingY;
-            PlayerMarker = "Ø";
-            PlayerColor = ConsoleColor.DarkRed;
+            Marker = "@";
+            Color = ConsoleColor.DarkRed;
 
         }
 
-        public void DrawPlayer()
+        public void Draw()
         {
-            Console.ForegroundColor = PlayerColor;
+            Console.ForegroundColor = Color;
             Console.SetCursorPosition(X, Y);
-            Console.Write(PlayerMarker);
+            Console.Write(Marker);
             Console.ResetColor();
         }
     }

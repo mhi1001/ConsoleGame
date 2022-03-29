@@ -10,8 +10,9 @@ namespace ConsoleGame
     class World
     {
         private string[,] Grid;
-        private int Rows;
-        private int Cols;
+
+        public int Rows { get; set; }
+        public int Cols { get; set; }
 
         public World(string[,] grid)
         {
