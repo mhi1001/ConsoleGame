@@ -16,7 +16,7 @@ namespace ConsoleGame
 
         public void Start()
         {
-            string[,] grid = LevelParser.ParseFileToArray(@"C:\Users\pc\source\repos\ConsoleGame\ConsoleGame\level1.txt");
+            string[,] grid = LevelParser.ParseFileTo2DArray(@"C:\Users\pc\source\repos\ConsoleGame\ConsoleGame\level1.txt");
             _myWorld = new World(grid);
             _currentPlayer = new Player(1, 7);
             _currentEnemy = new Enemy(25, 1);
@@ -36,7 +36,7 @@ namespace ConsoleGame
                     if (_myWorld.IsWalkable(_currentPlayer.X, _currentPlayer.Y - 1))
                     {
                         _currentPlayer.Y -= 1;
-                        PendingMovement = true;
+                       
                     }
                     break;
 
@@ -72,34 +72,97 @@ namespace ConsoleGame
 
         public void EnemyMovement()
         {
-            Thread.Sleep(500);
-            _currentEnemy.X++;
-            Frame();
-            Thread.Sleep(500);
-            _currentEnemy.X++;
-            Frame();
-            Thread.Sleep(500);
-            _currentEnemy.X++;
-            Frame();
-            Thread.Sleep(500);
-            _currentEnemy.X++;
-            Frame();
-            Thread.Sleep(500);
-            _currentEnemy.X++;
-            Frame();
-            Thread.Sleep(500);
-            _currentEnemy.X++;
-            Frame();
+            int oldRandomNumber = 0;
+            while (true)
+            {
+                Random rng = new Random();
+                Thread.Sleep(500);
+                int randomNumber = rng.Next(1, 5);
+
+                if (randomNumber != oldRandomNumber)
+                {
+                    switch (randomNumber)
+                    {
+                        case 1:
+                            if (_myWorld.IsWalkable(_currentEnemy.X, _currentEnemy.Y - 1))
+                            {
+                                _currentEnemy.Y -= 1;
+                                Frame();
+                                oldRandomNumber = randomNumber;
+                            }
+                            break;
+
+                        case 2:
+                            if (_myWorld.IsWalkable(_currentEnemy.X - 1, _currentEnemy.Y))
+                            {
+                                _currentEnemy.X -= 1;
+                                Frame();
+                                oldRandomNumber = randomNumber;
+                            }
+                            break;
+
+                        case 3:
+                            if (_myWorld.IsWalkable(_currentEnemy.X, _currentEnemy.Y + 1))
+                            {
+                                _currentEnemy.Y += 1;
+                                Frame();
+                                oldRandomNumber = randomNumber;
+                            }
+                            break;
+
+                        case 4:
+                            if (_myWorld.IsWalkable(_currentEnemy.X + 1, _currentEnemy.Y))
+                            {
+                                _currentEnemy.X += 1;
+                                Frame();
+                                oldRandomNumber = randomNumber;
+                            }
+                            break;
+                        case 5:
+                            if (_myWorld.IsWalkable(_currentEnemy.X + 1, _currentEnemy.Y))
+                            {
+                                _currentEnemy.X += 1;
+                                Frame();
+                                oldRandomNumber = randomNumber;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
+            }
+            //direction = rng()%4
+
+            //Thread.Sleep(500);
+            //_currentEnemy.X++;
+            //Frame();
+            //Thread.Sleep(500);
+            //_currentEnemy.X++;
+            //Frame();
+            //Thread.Sleep(500);
+            //_currentEnemy.X++;
+            //Frame();
+            //Thread.Sleep(500);
+            //_currentEnemy.X++;
+            //Frame();
+            //Thread.Sleep(500);
+            //_currentEnemy.X++;
+            //Frame();
+            //Thread.Sleep(500);
+            //_currentEnemy.X++;
+            //Frame();
 
         }
         private void GameLoop()
         {
             Task.Run(EnemyMovement);
-            
+
             while (true)
             {
                 Frame();
                 HandleInput();
+                
             }
         }
     }

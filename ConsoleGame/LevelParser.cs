@@ -9,7 +9,7 @@ namespace ConsoleGame
 {
     class LevelParser
     {
-        public static string[,] ParseFileToArray(string filePath)
+        public static string[,] ParseFileTo2DArray(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath);
             string firstLine = lines[0];
